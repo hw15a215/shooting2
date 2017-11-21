@@ -36,6 +36,8 @@ void Update()
     // 弾の発射
     if (bulletPos.x <= -999 && Input::GetKeyDown(KeyMask::Space)) {
         bulletPos = cannonPos + Vector2(50, 10);
+        //SEが再生されるように変更 HW15A215 山領萌美
+        PlaySound("se_maoudamashii_explosion03");
     }
 
     // 弾の移動
@@ -47,6 +49,8 @@ void Update()
         if (targetRect.Overlaps(bulletRect)) {
             score += 1;         // スコアの加算
             bulletPos.x = -999; // 弾を発射可能な状態に戻す
+            //SEが再生されるように変更 HW15A215 山領萌美
+            PlaySound("se_maoudamashii_explosion06");
         }
     }
 
