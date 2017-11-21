@@ -3,8 +3,8 @@
 
 // TODO: 砲台の位置を画面左に、ターゲットの位置を画面右に移動させる。(A) HW16A063 木下　直矢
 // TODO: 雲の位置を左から右に動かす。見えなくなったら左端に戻す。(B) HW16A063 木下　直矢
-// TODO: 砲台を青い壁に沿って上下に動かす。(C)
-// TODO: 弾のスピードを速くし、弾が画面右端を通り越したら再度発射可能にする。(D)
+// TODO: 砲台を青い壁に沿って上下に動かす。(C)hw16a185松本聖司
+// TODO: 弾のスピードを速くし、弾が画面右端を通り越したら再度発射可能にする。(D)hw16a185松本聖司
 // TODO: スコアのサイズを大きくする。(E) HW16A201 村上　研斗
 // TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F)　HW16A201 村上　研斗
 // TODO: PlayBGM()関数を使って、BGMを再生する。(G) 実装：HW15A215 山領萌美
@@ -16,7 +16,7 @@ Vector2 cannonPos;      //!< 砲台の位置
 Vector2 bulletPos;      //!< 弾の位置
 Rect    targetRect;     //!< ターゲットの矩形
 int     score;          //!< スコア
-
+int     cannonPos_y_speed;//!< 砲台の移動速度
 
 // ゲーム開始時に呼ばれる関数です。
 void Start()
@@ -28,6 +28,7 @@ void Start()
     score = 0;
     //BGMが再生されるように変更 HW15A215 山領萌美
     PlayBGM("bgm_maoudamashii_8bit07.mp3");
+    cannonPos_y_speed=3;
 }
 
 // 1/60秒ごとに呼ばれる関数です。モデルの更新と画面の描画を行います。
@@ -39,11 +40,17 @@ void Update()
         //SEが再生されるように変更 HW15A215 山領萌美
         PlaySound("se_maoudamashii_explosion03.mp3");
     }
-
+    // 砲台の上下移動
+    if(cannonPos.y>-70){
+        cannonPos_y_speed=-3;
+    }
+    if(cannonPos.y<-150){
+        cannonPos_y_speed=3;
+    }
+    cannonPos += Vector2(0, cannonPos_y_speed);
     // 弾の移動
     if (bulletPos.x > -999) {
-        bulletPos.x += 10 * Time::deltaTime;
-
+        bulletPos.x += 5000 * Time::deltaTime;
         // ターゲットと弾の当たり判定
         Rect bulletRect(bulletPos, Vector2(32, 20));
         if (targetRect.Overlaps(bulletRect)) {
@@ -52,6 +59,7 @@ void Update()
             //SEが再生されるように変更 HW15A215 山領萌美
             PlaySound("se_maoudamashii_explosion06.mp3");
         }
+        if (bulletPos.x > 300)bulletPos.x = -999;
     }
 
     // 背景の描画
