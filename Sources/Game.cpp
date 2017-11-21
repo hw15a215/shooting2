@@ -47,7 +47,7 @@ void Update()
         // ターゲットと弾の当たり判定
         Rect bulletRect(bulletPos, Vector2(32, 20));
         if (targetRect.Overlaps(bulletRect)) {
-            score += 1;         // スコアの加算
+            score += 100;         // スコアの加算 実装　HW16A201 村上　研斗
             bulletPos.x = -999; // 弾を発射可能な状態に戻す
             //SEが再生されるように変更 HW15A215 山領萌美
             PlaySound("se_maoudamashii_explosion06");
@@ -73,9 +73,9 @@ void Update()
     // ターゲットの描画
     FillRect(targetRect, Color::red);
 
-    // スコアの描画
+    // スコアの描画 実装　HW16A201　村上　研斗
     SetFont("nicoca_v1.ttf", 55.0f);
-    DrawText(FormatString("%02d", score), Vector2(-319, 199), Color::black);
-    DrawText(FormatString("%02d", score), Vector2(-320, 200), Color::white);
+    DrawText(FormatString("%05d", score), Vector2(-319, 199), Color::black);
+    DrawText(FormatString("%05d", score), Vector2(-320, 200), Color::white);
 }
 
