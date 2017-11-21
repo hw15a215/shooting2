@@ -11,6 +11,7 @@
 // TODO: PlaySound()関数を使って、弾の発射時とターゲットに当たった時にSEを再生する。(H) 実装：HW15A215 山領萌美
 
 
+
 Vector2 cloudPos;       //!< 雲の位置
 Vector2 cannonPos;      //!< 砲台の位置
 Vector2 bulletPos;      //!< 弾の位置
@@ -61,11 +62,11 @@ void Update()
         }
         if (bulletPos.x > 300)bulletPos.x = -999;
     }
-
+    
     // 背景の描画
     Clear(Color::cyan);
     FillRect(Rect(-320, -240, 640, 100), Color::green);
-
+    
     // 雲の描画
     DrawImage("cloud1.png", cloudPos);
     
@@ -75,15 +76,16 @@ void Update()
         cloudPos.x = -500;
     }
 
+
     // 弾の描画
     if (bulletPos.x > -999) {
         DrawImage("bullet.png", bulletPos);
     }
-
+    
     // 砲台の描画
     FillRect(Rect(cannonPos.x-10, -140, 20, 100), Color::blue);
     DrawImage("cannon.png", cannonPos);
-
+    
     // ターゲットの描画
     FillRect(targetRect, Color::red);
 
@@ -91,5 +93,6 @@ void Update()
     SetFont("nicoca_v1.ttf", 55.0f);
     DrawText(FormatString("%05d", score), Vector2(-319, 199), Color::black);
     DrawText(FormatString("%05d", score), Vector2(-320, 200), Color::white);
+
 }
 
